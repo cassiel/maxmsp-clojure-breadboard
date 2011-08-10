@@ -23,9 +23,35 @@
 
 ((var-get (find-var (symbol "user" "g"))))
 
+(symbol (symbol "a") "b")
 
+(find-var-from-name 'user "+")
+
+#'+
 
 f
 
+(in-ns 'maxmsp-clojure.eval)
+(resolve-item (symbol "test-ns") 56)
+
+(def a (seq (.split "A B C" " ")))
+
+(nth a 0)
+
+(maxmsp-clojure.eval/find-var-from-name 'user "+")
+
 
 (f 4 6)
+
+(run-all-tests)
+
+(clojure.test/run-all-tests)
+
+(maxmsp-clojure.eval/evaluate "user" "(def fooble 13)")
+
+(fn? 35)
+
+(+ 40 2)
+(maxmsp-clojure.eval/evaluate (symbol "test-ns") "(+ 40 2)")
+
+(instance? String 34)
