@@ -55,3 +55,19 @@ f
 (maxmsp-clojure.eval/evaluate (symbol "test-ns") "(+ 40 2)")
 
 (instance? String 34)
+
+(into-array Integer/TYPE [3])
+
+(java.util.Arrays/equals (com.cycling74.max.Atom/newAtom (into-array Integer/TYPE [3])) (com.cycling74.max.Atom/newAtom (into-array Integer/TYPE [3])))
+
+(= [45 5.0 "A"] (maxmsp-clojure.data/unpack-atoms (into-array com.cycling74.max.Atom (map #(com.cycling74.max.Atom/newAtom %) [45 5.0 "A"]))))
+
+(= [4 5.6 6] '(4 5.6 6))
+
+(java.util.Arrays/equals (into-array Integer/TYPE [2]) (into-array Integer/TYPE [2]))
+
+(into-array [2 3 4])
+
+(maxmsp-clojure.data/pack-atoms 3)
+
+(com.cycling74.max.Atom/newAtom 3)

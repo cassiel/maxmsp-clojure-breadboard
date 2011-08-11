@@ -8,6 +8,7 @@
     (load-string expr)))
 
 (defn find-var-from-name [ns-sym name]
+  "Look up a name. If not qualified, search ns-sym first, then search clojure.core."
   (let [toks (.split name "/")]
     (if (= (alength toks) 1)
       (let [v (find-var (symbol (str ns-sym) name))]
@@ -17,14 +18,15 @@
       (find-var (symbol name)))))
 
 (defn resolve-item [ns-sym item]
+  "Resolve the first item of a list. If it's a string, treat as a variable name."
   (if (instance? String item)
     (var-get (find-var-from-name ns-sym item))
     item))
 
-(defn evaluate-args [ns-sym item & args]
+(defn evaluate-list [ns-sym item & rest]
   "Evaluate a list of items. The first, if a string, is taken as a function
    or variable name. Any of the rest, if strings, are taken as literal strings."
   (let [item (resolve-item ns-sym item)]
-    (if (seq args)
-      (apply item args)
+    (if (seq rest)
+      (apply item rest)
       item)))

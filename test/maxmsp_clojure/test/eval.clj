@@ -1,7 +1,6 @@
 (ns maxmsp-clojure.test.eval
   (:require [maxmsp-clojure.eval :as e])
-  (:use [clojure.test])
-  (:require [maxmsp-clojure.util :as util]))
+  (:use [clojure.test]))
 
 (deftest simple-eval
   "Simple evaluation test."
@@ -26,10 +25,11 @@
   (is (= #'maxmsp-clojure.eval/evaluate (e/find-var-from-name 'maxmsp-clojure.eval "evaluate"))))
 
 (deftest resolver
+  "Resolving strings as functions."
   (is (= 56 (e/resolve-item 'user 56)))
   (is (fn? (e/resolve-item 'clojure.core "drop-last"))))
 
-(deftest eval-args-primitives
+(deftest eval-list-primitives
   "Evaluate from list of arguments."
-  (is (= 56 (e/evaluate-args 'test-ns 56)))
-  (is (= 42 (e/evaluate-args 'clojure.core "+" 30 10 2))))
+  (is (= 56 (e/evaluate-list 'test-ns 56)))
+  (is (= 42 (e/evaluate-list 'clojure.core "+" 30 10 2))))
