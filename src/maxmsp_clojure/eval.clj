@@ -1,11 +1,13 @@
 (ns maxmsp-clojure.eval)
 
 (defn evaluate [ns-sym expr]
-  "Evaluate an expression in a namespace."
+  "Evaluate an expression in a namespace. The namespace switching is a horrible hack."
   (do
-    (in-ns ns-sym)
-    (refer 'clojure.core)
-    (load-string expr)))
+    ;(in-ns ns-sym)            ;doesn't work in JNI'd code?
+    ;(refer 'clojure.core)
+    ;;(binding [this this] (load-string (format "(in-ns '%s) %s" ns-sym expr)))))
+    (load-string (format "(in-ns '%s) %s" ns-sym expr))))
+    ;(load-string expr)))
 
 (defn find-var-from-name [ns-sym name]
   "Look up a name. If not qualified, search ns-sym first, then search clojure.core."

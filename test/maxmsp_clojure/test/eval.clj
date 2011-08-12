@@ -17,6 +17,10 @@
   (is (= 67 (do (e/evaluate 'user "(def x 67)")
                 (e/evaluate 'user "x")))))
 
+;(deftest binding-this
+;  "Test that 'this' is bound."
+;  (is (= 42 (e/evaluate 42 'test-ns "this"))))
+
 (deftest find-var-test
   "Looking up variables."
   (is (= #'clojure.core/+ (e/find-var-from-name 'user "+")))

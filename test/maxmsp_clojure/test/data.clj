@@ -21,3 +21,10 @@
   (is (Arrays/equals (Atom/newAtom (into-array Integer/TYPE [4 5])) (d/pack-atoms 4 5)))
   (is (Arrays/equals (into-array Atom (map #(Atom/newAtom %) [3 4.0 "A"]))
                      (d/pack-atoms 3 4.0 "A"))))
+
+(deftest wrap-scalar
+  (is (= 1 (d/wrap-result 1)))
+  (is (Arrays/equals (d/pack-atoms 1 2 3) (d/wrap-result [1 2 3])))
+  (is (= "A" (d/wrap-result "A")))
+  (is (nil? (d/wrap-result nil)))
+  (is (re-matches #".*fn__.*" (d/wrap-result #(inc %)))))
